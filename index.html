@@ -72,7 +72,6 @@
 
         function vote(idx) {
             voted = true;
-            console.log(`voting ${idx}`);
             socket.emit('vote', idx);
             choice_buttons.className = 'voted';
         }
@@ -82,7 +81,7 @@
         })
 
         socket.on('choices', (new_choices, new_question) => {
-            console.log(`new question ${new_question}: ${new_choices}`);
+            console.log(`Received new question ${new_question}: ${new_choices}`);
 
             choices = new_choices;
             voted = false;
@@ -108,16 +107,14 @@
         
         socket.on('results', (results) => {
 
-            console.log(`results: ${results}`);
+            console.log(`Received results: ${results}`);
 
             const sum = results.reduce((a,b) => a+b);
-            console.log(`sum is ${sum}`);
             const max = Math.max(...results);
             results.map((score, idx) => {
             
                 const li = choice_buttons.children[idx];
                 const width = Math.round(100 * score / sum);
-                console.log(`set ${idx} to ${width}`);
                 li.style.width = `${width}%`;
                 li.textContent = `${choices[idx]} : ${score}`;
                 if (score === max) {
@@ -125,9 +122,6 @@
                 } else {
                     li.classList.remove('winner');
                 }
-                
-                //bar.setAttribute("max", sum);
-                //bar.setAttribute("value", score);
             });
 
         })

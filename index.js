@@ -1,3 +1,5 @@
+// Liliquiz v0.1 (c) Maxime Augier <max@xolus.net>
+
 import express from 'express';
 import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
