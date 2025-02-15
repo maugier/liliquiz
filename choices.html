@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #rows input {
+                display: block;
+                margin-bottom: 1em;
+            }
+
+            #question {
+                margin-bottom: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <form method="post" action="/choices">
+            <div id="question">
+                Question:
+                <input type="text" name="question">
+            </div>
+            <div id="rows">
+                <input type="text" name="choice" />
+                <input type="text" name="choice" />
+                <input type="text" name="choice" />
+            </div>
+            <input type="submit" value="OK">
+            <button type="button" onclick="more()">+</button>
+            <button type="button" onclick="less()">-</button>
+        </form>
+
+    </body>
+    <script>
+        const rows = document.getElementById("rows");
+        function more() {
+            const row = document.createElement('input');
+            row.setAttribute("type", "text");
+            row.setAttribute("name", "choice");
+            rows.appendChild(row);
+        }
+        function less() {
+            rows.removeChild(rows.lastChild);
+        }
+    </script>
+</html>
