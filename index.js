@@ -49,7 +49,6 @@ app.use(session({
     saveUninitialized: false, 
     secret: randomUUID(),
 }))
-app.use(formidable());
 
 app.get('/', (req, res) => {
     res.sendFile(page("index.html"));
@@ -59,6 +58,7 @@ app.get('/login', (req,res) => {
     res.sendFile(page("login.html"));
 })
 
+app.use('/login', formidable())
 app.post('/login', (req, res) => {
     if (req.fields.password !== admin_password) {
         return res.sendStatus(403);
@@ -67,14 +67,16 @@ app.post('/login', (req, res) => {
     res.redirect('/choices');
 })
 
+
 app.use('/choices', admin_only);
+app.use('/choices', express.json())
 app.get('/choices', (req, res) => {
     res.sendFile(page("choices.html"));
 })
 
 app.post('/choices', (req, res) => {
-    console.log(JSON.stringify(req.fields));
-    set_choices(req.fields.choice, req.fields.question);
+    console.log(JSON.stringify(req.body));
+    set_choices(req.body.choices, req.body.question);
     res.redirect("/#abstain")
 });
 

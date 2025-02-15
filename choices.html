@@ -13,24 +13,26 @@
         </style>
     </head>
     <body>
-        <form method="post" action="/choices">
-            <div id="question">
-                Question:
-                <input type="text" name="question">
-            </div>
-            <div id="rows">
-                <input type="text" name="choice" />
-                <input type="text" name="choice" />
-                <input type="text" name="choice" />
-            </div>
-            <input type="submit" value="OK">
-            <button type="button" onclick="more()">+</button>
-            <button type="button" onclick="less()">-</button>
-        </form>
+
+        <div>
+            Question:
+            <input id="question" type="text" name="question">
+        </div>
+        <div id="rows">
+            <input type="text" name="choice" />
+            <input type="text" name="choice" />
+            <input type="text" name="choice" />
+        </div>
+        <button type="button" onclick="poll()">Ok</button>
+        <button type="button" onclick="more()">+</button>
+        <button type="button" onclick="less()">-</button>
+
 
     </body>
     <script>
         const rows = document.getElementById("rows");
+        const question = document.getElementById("question");
+
         function more() {
             const row = document.createElement('input');
             row.setAttribute("type", "text");
@@ -39,6 +41,22 @@
         }
         function less() {
             rows.removeChild(rows.lastChild);
+        }
+        function poll() {
+
+            body = JSON.stringify({
+                question: question.value,
+                choices: [...rows.children].map((i) => i.value)
+            });
+            console.log(body);
+
+            fetch('/choices', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: body
+            }).then(() => {
+                window.location = '/#abstain'
+            });
         }
     </script>
 </html>
