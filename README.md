@@ -1,6 +1,18 @@
-# Liliquiz - Lightweight Live Quiz
+# Liliquiz - Ultra simple Live Poll
+
+![A form with a question and three options filled](screenshots/choices.png)
+![Poll with same three options and result bars](screenshots/main.png)
+
+An ultra simple live polling app. Fill out a form, point people to the
+URL, results in realtime.
+
+Absolutely no attempt is made at stopping people from voting multiple times.
+In fact, refreshing the page is enough to vote again. This is by design.
+
+The polling control form is password-protected.
 
 ## Usage
+
 
 ```
 npm install
