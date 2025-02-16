@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:23-slim
 WORKDIR /home/node
 COPY *.json /home/node
 RUN npm install
