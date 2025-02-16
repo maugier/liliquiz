@@ -28,11 +28,15 @@ let results = [];
 const voted = new Set();
 
 function admin_only(req,res,next) {
-    if (!req.session.admin) {
-        return res.sendStatus(403)
-    } else {
-        return next()
+    if (req.session.admin) {
+	return next()
     }
+
+    if (req.get('Authorization') == `Bearer ${admin_password}`) {
+	return next()
+    }
+
+    return res.sendStatus(403)
 }
 
 function set_choices(new_choices, new_question) {
